@@ -1,0 +1,30 @@
+{
+  "name": "librarysoap",
+  "version": "1.0.0",
+  "description": "A digital library that can be access through a SOAP service",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stefmitkovski/LibrarySOAP.git"
+  },
+  "author": "Stefan Mitkovski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stefmitkovski/LibrarySOAP/issues"
+  },
+  "homepage": "https://github.com/stefmitkovski/LibrarySOAP#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.0",
+    "moongose": "^1.0.0",
+    "nodemon": "^2.0.20",
+    "soap": "^1.0.0"
+  }
+}
