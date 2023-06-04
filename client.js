@@ -11,15 +11,41 @@ soap.createClient(url, function (err, client) {
   * Parameters of the service call: they need to be called as specified
   * in the WSDL file
   */
-  var args = {
-    message: "id1:12:34:56:out42",
-    splitter: ":"
+  var login_args = {
+    email: "test@gmail.com",
+    password: "password"
   };
+  var register_args = {
+    name: "Test",
+    email: "test@gmail.com",
+    password: "password"
+  };
+  var logout_args = {
+    token: "token"
+  };
+
+
   // call the service
-  client.MessageSplitter(args, function (err, res) {
+  
+  // Login Test
+  client.Login(login_args, function (err, res) {
     if (err)
       throw err;
-      // print the service returned result
     console.log(res); 
   });
+  
+  // Register Test
+  client.Register(register_args, function (err, res) {
+    if (err)
+    throw err;
+    console.log(res); 
+  });
+
+  // Logout Test
+  client.Logout(logout_args, function (err, res) {
+    if (err)
+    throw err;
+    console.log(res); 
+  });
+
 });

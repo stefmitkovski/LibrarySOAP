@@ -1,54 +1,25 @@
 const soap = require('soap');
 const express = require('express');
 const fs = require('fs');
-const asyncHandler = require('express-async-handler')
 const dotenv = require('dotenv').config()
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcryptjs')
 
-const User = require('./models/userModel')
-const Book = require('./models/bookModel')
-const Lending = require('./models/lendingModel')
+// User function(register, login and logout)
+const { register_function, login_function, logout_function} = require('./controllers/userController')
 
 const port = process.env.PORT || 8000
 const connectDB = require('./db')
 
 connectDB()
 
-login_function = asyncHandler( async(args) => {
-    console.log('login_function');
-    var email = args.email;
-    var password = args.password;
-
-    const user = await User.findOne({email})
-
-    // Од коментирај ја оваа линија кога ќе биде готова цела програма
-
-    // if(user.token == ""){
-    //     await User.findByIdAndUpdate(user._id, {token: generateToken(user._id)}, {new: true})
-    // }
-
-    if(user && (await bcrypt.compare(password, user.password))){
-      var result = "Sucess your token is: " + user.token
-    }else{
-      var result = 'Wrong email or password'
-    }
-
-    return { 
-      result: result
-    }
-})
-
 // the service
-var serviceObject = {
-  LoginService: {
-        LoginServiceSoapPort: {
-            Login: login_function
-        },
-        LoginServiceSoap12Port: {
-            Login: login_function
-        }
+const service = {
+  LibraryService: {
+    LibraryPort: {
+      Login: login_function,
+      Register: register_function,
+      Logout: logout_function
     }
+  }
 };
 
 // load the WSDL file
@@ -65,6 +36,6 @@ app.get('/', function (req, res) {
 app.listen(port, function () {
   console.log('Listening on port ' + port);
   var wsdl_path = "/wsdl";
-  soap.listen(app, wsdl_path, serviceObject, xml);
-  console.log("Check http://localhost:" + port + wsdl_path +"?wsdl to see if the service is working");
+  soap.listen(app, wsdl_path, service, xml);
+  console.log("Check http://localhost:" + port + wsdl_path + "?wsdl to see if the service is working");
 });
