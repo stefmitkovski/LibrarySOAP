@@ -75,6 +75,22 @@
                 </xs:complexType>
             </xs:element>
 
+            <xs:element name="AuthorRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="author" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="AuthorResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="result" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
         </xs:schema>
     </wsdl:types>
 
@@ -118,6 +134,14 @@
         <wsdl:part name="parameters" element="tns:SortLowResponse"/>
     </wsdl:message>
 
+    <wsdl:message name="AuthorRequest">
+        <wsdl:part name="parameters" element="tns:AuthorRequest"/>
+    </wsdl:message>
+
+    <wsdl:message name="AuthorResponse">
+        <wsdl:part name="parameters" element="tns:AuthorResponse"/>
+    </wsdl:message>
+
     <wsdl:portType name="LibraryPortType">
         <wsdl:operation name="Login">
             <wsdl:input message="tns:LoginRequest"/>
@@ -142,6 +166,11 @@
         <wsdl:operation name="SortLow">
             <wsdl:input message="tns:SortLowRequest"/>
             <wsdl:output message="tns:SortLowResponse"/>
+        </wsdl:operation>
+        
+        <wsdl:operation name="Author">
+            <wsdl:input message="tns:AuthorRequest"/>
+            <wsdl:output message="tns:AuthorResponse"/>
         </wsdl:operation>
     </wsdl:portType>
 
@@ -190,6 +219,16 @@
 
         <wsdl:operation name="SortLow">
             <soap:operation soapAction="SortLow"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="Author">
+            <soap:operation soapAction="Author"/>
             <wsdl:input>
                 <soap:body use="literal"/>
             </wsdl:input>

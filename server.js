@@ -7,7 +7,7 @@ const dotenv = require('dotenv').config()
 const { register_function, login_function, logout_function} = require('./controllers/userController')
 
 // Book functions
-const { sort_high_function } = require('./controllers/bookController')
+const { sort_high_function, sort_low_function, author_function } = require('./controllers/bookController')
 
 const port = process.env.PORT || 8000
 const connectDB = require('./db')
@@ -22,7 +22,8 @@ const service = {
       Register: register_function,
       Logout: logout_function,
       SortHigh: sort_high_function,
-      SortLow: sort_low_function
+      SortLow: sort_low_function,
+      Author: author_function
     }
   }
 };
