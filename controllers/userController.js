@@ -30,6 +30,7 @@ login_function = asyncHandler(async(args) => {
   
   // Register function
   register_function = asyncHandler(async(args) => {
+    console.log('Register function called');
     var name = args.name;
     var email = args.email;
     var password = args.password
@@ -73,6 +74,7 @@ login_function = asyncHandler(async(args) => {
   
   // Logout function
   logout_function = asyncHandler(async(args) => {
+    console.log('Logout function called');
     try {
   
       var token = args.token;

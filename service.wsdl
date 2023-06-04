@@ -60,6 +60,21 @@
                 </xs:complexType>
             </xs:element>
 
+            <xs:element name="SortHighRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="SortHighResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="result" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
         </xs:schema>
     </wsdl:types>
 
@@ -87,6 +102,22 @@
         <wsdl:part name="parameters" element="tns:LogoutResponse"/>
     </wsdl:message>
 
+    <wsdl:message name="SortHighRequest">
+        <wsdl:part name="parameters" element="tns:SortHighRequest"/>
+    </wsdl:message>
+
+    <wsdl:message name="SortHighResponse">
+        <wsdl:part name="parameters" element="tns:SortHighResponse"/>
+    </wsdl:message>
+
+    <wsdl:message name="SortLowRequest">
+        <wsdl:part name="parameters" element="tns:SortLowRequest"/>
+    </wsdl:message>
+
+    <wsdl:message name="SortLowResponse">
+        <wsdl:part name="parameters" element="tns:SortLowResponse"/>
+    </wsdl:message>
+
     <wsdl:portType name="LibraryPortType">
         <wsdl:operation name="Login">
             <wsdl:input message="tns:LoginRequest"/>
@@ -101,6 +132,16 @@
         <wsdl:operation name="Logout">
             <wsdl:input message="tns:LogoutRequest"/>
             <wsdl:output message="tns:LogoutResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="SortHigh">
+            <wsdl:input message="tns:SortHighRequest"/>
+            <wsdl:output message="tns:SortHighResponse"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="SortLow">
+            <wsdl:input message="tns:SortLowRequest"/>
+            <wsdl:output message="tns:SortLowResponse"/>
         </wsdl:operation>
     </wsdl:portType>
 
@@ -129,6 +170,26 @@
 
         <wsdl:operation name="Logout">
             <soap:operation soapAction="Logout"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="SortHigh">
+            <soap:operation soapAction="SortHigh"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="SortLow">
+            <soap:operation soapAction="SortLow"/>
             <wsdl:input>
                 <soap:body use="literal"/>
             </wsdl:input>

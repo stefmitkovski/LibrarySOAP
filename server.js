@@ -3,8 +3,11 @@ const express = require('express');
 const fs = require('fs');
 const dotenv = require('dotenv').config()
 
-// User function(register, login and logout)
+// User functions(register, login and logout)
 const { register_function, login_function, logout_function} = require('./controllers/userController')
+
+// Book functions
+const { sort_high_function } = require('./controllers/bookController')
 
 const port = process.env.PORT || 8000
 const connectDB = require('./db')
@@ -17,7 +20,9 @@ const service = {
     LibraryPort: {
       Login: login_function,
       Register: register_function,
-      Logout: logout_function
+      Logout: logout_function,
+      SortHigh: sort_high_function,
+      SortLow: sort_low_function
     }
   }
 };
