@@ -6,7 +6,7 @@ const Lending = require('../models/lendingModel')
 sort_high_function = asyncHandler(async (args) => {
     console.log("Sorting by highest number of pages")
     var SortedBooks = ""
-    const books = await Book.find().sort({ pages: -1 }) // 1 for ascending order, -1 for descending order
+    const books = await Book.find({free: true}).sort({ pages: -1 }) // 1 for ascending order, -1 for descending order
 
     books.forEach(el => {
         SortedBooks += "Title: " + el.title + "| Author: " + el.author + "| Pages: " + el.pages + ", "
@@ -19,7 +19,7 @@ sort_high_function = asyncHandler(async (args) => {
 sort_low_function = asyncHandler(async (args) => {
     console.log("Sorting by lowest number of pages")
     var SortedBooks = ""
-    const books = await Book.find().sort({ pages: 1 }) // 1 for ascending order, -1 for descending order
+    const books = await Book.find({free: true}).sort({ pages: 1 }) // 1 for ascending order, -1 for descending order
 
     books.forEach(el => {
         SortedBooks += "Title: " + el.title + "| Author: " + el.author + "| Pages: " + el.pages + ", "
@@ -98,9 +98,39 @@ modify_function = asyncHandler(async (args) => {
     }
 })
 
+users_function = asyncHandler(async(args) => {
+    console.log("Listing all the users")
+    var token = args.token
+    var user_string = ""
+    if(!token){
+        return {
+            result: "Forgot to enter a token"
+        }
+    }
+    
+    var users = await User.findOne({token: token})
+    if(!users){
+        return {
+            result: "The user either doen't exist or isn't logged in"
+        }
+    }
+
+    var id = users._id;
+
+    users = await User.find({})
+    users.forEach(el => {
+            user_string += "Name " + el.name + " | email: " + el.email + ", "
+    })
+
+    return {
+        result: user_string
+    }
+})
+
 module.exports = {
     sort_high_function,
     sort_low_function,
     author_function,
-    modify_function
+    modify_function,
+    users_function
 }
