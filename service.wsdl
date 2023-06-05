@@ -91,6 +91,25 @@
                 </xs:complexType>
             </xs:element>
 
+            <xs:element name="ModifyRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="token" type="xs:string"/>
+                        <xs:element name="title" type="xs:string"/>
+                        <xs:element name="key" type="xs:string"/>
+                        <xs:element name="value" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="ModifyResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="result" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
         </xs:schema>
     </wsdl:types>
 
@@ -142,6 +161,14 @@
         <wsdl:part name="parameters" element="tns:AuthorResponse"/>
     </wsdl:message>
 
+    <wsdl:message name="ModifyRequest">
+        <wsdl:part name="parameters" element="tns:ModifyRequest"/>
+    </wsdl:message>
+
+    <wsdl:message name="ModifyResponse">
+        <wsdl:part name="parameters" element="tns:ModifyResponse"/>
+    </wsdl:message>
+
     <wsdl:portType name="LibraryPortType">
         <wsdl:operation name="Login">
             <wsdl:input message="tns:LoginRequest"/>
@@ -171,6 +198,11 @@
         <wsdl:operation name="Author">
             <wsdl:input message="tns:AuthorRequest"/>
             <wsdl:output message="tns:AuthorResponse"/>
+        </wsdl:operation>
+        
+        <wsdl:operation name="Modify">
+            <wsdl:input message="tns:ModifyRequest"/>
+            <wsdl:output message="tns:ModifyResponse"/>
         </wsdl:operation>
     </wsdl:portType>
 
@@ -229,6 +261,16 @@
 
         <wsdl:operation name="Author">
             <soap:operation soapAction="Author"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="Modify">
+            <soap:operation soapAction="Modify"/>
             <wsdl:input>
                 <soap:body use="literal"/>
             </wsdl:input>
