@@ -127,10 +127,43 @@ users_function = asyncHandler(async(args) => {
     }
 })
 
+delete_function = asyncHandler(async(args) =>{
+    console.log("Deleting user")
+    var token = args.token
+    if(!token){
+        return {
+            result: "Forgot to enter a token"
+        }
+    }
+
+    var user = await User.findOne({token: token})
+    if(!user){
+        return {
+            result: "The user either doen't exist or isn't logged in"
+        }
+    }
+
+    var lending_owner = await Lending.findOne({owner: user._id})
+    var lending_reciver = await Lending.findOne({reciver: user._id})
+    if(lending_owner || lending_reciver){
+        return {
+            result: "Can't delete the user because he/she is involve in a lending operation"
+        }
+    }
+
+    await Book.deleteMany({owner: user._id})
+    await User.findByIdAndDelete({_id: user._id})
+
+    return {
+        result: "Successfully deleted the user !"
+    }
+})
+
 module.exports = {
     sort_high_function,
     sort_low_function,
     author_function,
     modify_function,
-    users_function
+    users_function,
+    delete_function
 }

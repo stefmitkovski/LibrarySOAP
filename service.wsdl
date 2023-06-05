@@ -126,6 +126,22 @@
                 </xs:complexType>
             </xs:element>
 
+            <xs:element name="DeleteRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="token" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="DeleteResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="result" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
         </xs:schema>
     </wsdl:types>
 
@@ -193,6 +209,14 @@
         <wsdl:part name="parameters" element="tns:UsersResponse"/>
     </wsdl:message>
 
+    <wsdl:message name="DeleteRequest">
+        <wsdl:part name="parameters" element="tns:DeleteRequest"/>
+    </wsdl:message>
+
+    <wsdl:message name="DeleteResponse">
+        <wsdl:part name="parameters" element="tns:DeleteResponse"/>
+    </wsdl:message>
+
     <wsdl:portType name="LibraryPortType">
         <wsdl:operation name="Login">
             <wsdl:input message="tns:LoginRequest"/>
@@ -232,6 +256,11 @@
         <wsdl:operation name="Users">
             <wsdl:input message="tns:UsersRequest"/>
             <wsdl:output message="tns:UsersResponse"/>
+        </wsdl:operation>
+        
+        <wsdl:operation name="Delete">
+            <wsdl:input message="tns:DeleteRequest"/>
+            <wsdl:output message="tns:DeleteResponse"/>
         </wsdl:operation>
     </wsdl:portType>
 
@@ -310,6 +339,16 @@
 
         <wsdl:operation name="Users">
             <soap:operation soapAction="Users"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="Delete">
+            <soap:operation soapAction="Delete"/>
             <wsdl:input>
                 <soap:body use="literal"/>
             </wsdl:input>
